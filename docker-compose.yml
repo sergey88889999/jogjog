@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"  # Порт, на котором будет работать ваш бэкенд
+    environment:
+      - DATABASE_URL=mysql://user:password@db:3306/dbname
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dbname
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  frontend:
+    image: nginx:alpine # Используем последний образ Nginx
+    ports:
+      - "80:80"  # Открываем 80 порт
+    depends_on:
+      - backend
+
