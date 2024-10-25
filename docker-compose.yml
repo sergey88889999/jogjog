@@ -1,29 +1,40 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: ./backend
-    ports:
-      - "5000:5000"  # Порт, на котором будет работать ваш бэкенд
+    expose:
+      - "5000"  # Используем expose вместо ports для внутреннего доступа
     environment:
-      - DATABASE_URL=mysql://user:password@db:3306/dbname
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - PYTHONUNBUFFERED=1
     depends_on:
-      - db
+      database:
+        condition: service_healthy
+    command: python app/app.py
 
-  db:
+  database:
     build:
-      context: ./db
+      context: ./database
+    expose:
+      - "3306"  # Только для внутреннего доступа
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: dbname
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   frontend:
-    image: nginx:alpine # Используем последний образ Nginx
+    build:
+      context: ./frontend
     ports:
-      - "80:80"  # Открываем 80 порт
+      - "80:80" # тут внешний доступ
     depends_on:
       - backend
-
+  
