@@ -7,6 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./app ./app
 
+# ------------------------------- block - rclone ----------------------------
 # Установка необходимых зависимостей
 RUN apt-get update && apt-get install -y \
     curl \
@@ -18,10 +19,6 @@ RUN curl https://rclone.org/install.sh | bash
 
 # Создание директории для конфигурации rclone
 RUN mkdir -p /root/.config/rclone
-
-# ENV PATH="/root/.local/bin:$PATH"
-
-RUN rclone --version
 
 # Копирование конфигурации rclone и скриптов
 COPY ./rclone/rclone.conf /root/.config/rclone/
@@ -47,7 +44,7 @@ COPY ./rclone/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-
+# ------------------------------- block - rclone ----------------------------
 
 
 # CMD ["python", "app/app.py"]

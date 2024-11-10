@@ -37,8 +37,8 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
 
-    print("Ждем 30 секунд для запуска всех сервисов...")
-    time.sleep(30)
+    print("Ждем 10 секунд для запуска всех сервисов...")
+    time.sleep(10)
     
     connection = connect_to_database()
     if not connection:
