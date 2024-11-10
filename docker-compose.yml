@@ -15,6 +15,7 @@ services:
     command: python app/app.py
     volumes:    # добавление в контейнер внешнюю папку которая синхронизированна с гугль-драйвом через
       - ./backend/suunto-trainings:/app/suunto-trainings    # rclone - дополнительно добавлена в контейнер (костыль!)
+      - ./logs:/app/logs   # проброс папки для логов
 
   database:
     build:

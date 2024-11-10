@@ -7,7 +7,7 @@ SOURCE="gdrive:suunto-trainings"
 DESTINATION="/app/suunto-trainings"
 
 # Создаём лог-файл
-LOG_FILE="/var/log/sync_suunto_$(date +%Y%m%d).log"
+LOG_FILE="/app/logs/sync_suunto_$(date +%Y%m%d).log"
 
 # Выполняем синхронизацию
 echo "Начало синхронизации: $(date)" >> "$LOG_FILE"
