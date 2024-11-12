@@ -26,6 +26,6 @@ Jogjog — это онлайн-тренер по бегу, который пом
     ```
 
 2. Запустите контейнеры с помощью Docker Compose:
-    '''bash
+    ```bash
     docker-compose up -d
     ```
