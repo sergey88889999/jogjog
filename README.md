@@ -21,11 +21,11 @@ Jogjog — это онлайн-тренер по бегу, который пом
 
 1. Склонируйте репозиторий:
     ```bash
-    'git clone https://github.com/sergey88889999/jogjog.git'
-    'cd jogjog'
+    git clone https://github.com/sergey88889999/jogjog.git
+    cd jogjog
     ```
 
 2. Запустите контейнеры с помощью Docker Compose:
     '''bash
-    'docker-compose up -d'
+    docker-compose up -d
     ```
